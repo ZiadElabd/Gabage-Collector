@@ -39,6 +39,7 @@ public class copyGC {
            to_heap.add(root);
         }
      return index;
+        
     }
     private int bfs(ObjNode parent,int index ){
         for (ObjNode node: parent.childs) {
