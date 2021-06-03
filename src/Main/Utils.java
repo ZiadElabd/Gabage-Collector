@@ -13,7 +13,7 @@ public class Utils {
 	private List<List<String>> edges = new LinkedList<>() ; 
 	
 	private void readHeap() throws IOException {
-		heap = cin.read_heap("heap.cvs");
+		heap = cin.read_heap("heap.csv");
 	}
 	
 	private void readEdges() throws IOException{
@@ -21,8 +21,7 @@ public class Utils {
 	}
 	
 	private void readRoots() throws IOException{
-		List<String> ret = cin.read_root("roots.txt");
-		
+		 roots = cin.read_root("roots.txt");
 	}
 	
 	private void link() {
@@ -56,6 +55,7 @@ public class Utils {
 		this.readHeap();
 		this.readEdges();
 		this.link();
+		this.readRoots();
 		this.setRoots();
 	}
 	List<ObjNode> getHeap() throws IOException{
