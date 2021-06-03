@@ -9,6 +9,7 @@ public class copyGC {
     private List<ObjNode> from_heap=new LinkedList<>();
     private List<ObjNode> to_heap=new LinkedList<>();
     private List<ObjNode> roots=new LinkedList<>();
+    Reader reader = new Reader();
     public copyGC() throws IOException {
         tools.init();
         this.from_heap=tools.getHeap();
@@ -19,6 +20,7 @@ public class copyGC {
         for (int i=0;i<to_heap.size();i++) {
             index=bfs(to_heap.get(i),index);
         }
+        reader.write_heap(to_heap);
         return to_heap;
     }
     private int copyRoots(){
