@@ -1,11 +1,8 @@
 package Main;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.*;
 
 public class Reader {
@@ -14,11 +11,7 @@ public class Reader {
         List<String> lines= Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         lines.forEach(line -> {
             line = fixLine(line);
-            line.replaceFirst("ï»¿", "");
             String[] col = line.split(",");
-            for(String s : col){
-                s.replaceAll("[^0-9]+", "");
-            }
             Integer memory_start = Integer.valueOf(col[1]);
             Integer memory_end = Integer.valueOf(col[2]);
             heap.add(new ObjNode(col[0], memory_start,memory_end));
@@ -39,11 +32,7 @@ public class Reader {
 
     public List<String> read_root(String path) throws IOException {
         List<String> roots =  Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
-        roots.forEach( r -> {
-            r = fixLine(r);
-            r.replaceFirst("ï»¿", "");
-            r.replaceAll("[^0-9]+", "");
-        });
+        roots.forEach( this::fixLine);
         return roots;
     }
 
@@ -52,27 +41,23 @@ public class Reader {
         List<String> lines= Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         lines.forEach(line -> {
             line = fixLine(line);
-            line.replaceFirst("ï»¿", "");
             String[] col = line.split(",");
-            for(String s : col){
-                s.replaceAll("[^0-9]+", "");
-            }
             pointers.add(Arrays.asList(col));
         });
         return pointers;
     }
 
     public String fixLine(String line){
-        List<Character> ch = new LinkedList<>();
+        List<Character> characters = new LinkedList<>();
         for(char c : line.toCharArray()){
             if(c > 31 && c < 58)
-                ch.add(c);
+                characters.add(c);
         }
-        char[] l = new char[ch.size()];
+        char[] chars = new char[characters.size()];
         int i=0;
-        for (Character c : ch) {
-            l[i++] = c;
+        for (Character c : characters) {
+            chars[i++] = c;
         }
-        return new String(l);
+        return new String(chars);
     }
 }

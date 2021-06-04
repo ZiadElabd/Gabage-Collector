@@ -5,16 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class copyGC {
-    private Utils tools=new Utils();
-    private List<ObjNode> from_heap=new LinkedList<>();
+    private OPS tools;
+    private List<ObjNode> from_heap;
     private List<ObjNode> to_heap=new LinkedList<>();
-    private List<ObjNode> roots=new LinkedList<>();
-    Reader reader = new Reader();
+    private List<ObjNode> roots;
+    Reader files = new Reader();
 
     public copyGC(String heap_path,String pointers_path,String roots_path) throws IOException {
-        tools.init(heap_path,pointers_path,roots_path);
-        this.from_heap=tools.getHeap();
-        this.roots=tools.getRoots();
+        tools = new OPS(heap_path,pointers_path,roots_path);
+        this.from_heap = tools.getHeap();
+        this.roots = tools.getRoots();
     }
 
     public List<ObjNode> coping(String newHeapFile){
@@ -22,7 +22,7 @@ public class copyGC {
         for (int i=0;i<to_heap.size();i++) {
             index=bfs(to_heap.get(i),index);
         }
-        reader.write_heap(to_heap,newHeapFile);
+        files.write_heap(to_heap,newHeapFile);
         return to_heap;
     }
     private int copyRoots(){
@@ -42,6 +42,7 @@ public class copyGC {
         }
      return index;
     }
+
     private int bfs(ObjNode parent,int index ){
         for (ObjNode node: parent.childs) {
             if(node.status!=true) {
