@@ -12,16 +12,16 @@ public class Utils {
 	private List<ObjNode> rootsNodes = new LinkedList<>();
 	private List<List<String>> edges = new LinkedList<>();
 	
-	private void readHeap() throws IOException {
-		heap = cin.read_heap("heap.csv");
+	private void readHeap(String path) throws IOException {
+		heap = cin.read_heap(path);
 	}
 	
-	private void readEdges() throws IOException{
-		edges = cin.read_pointers("pointers.csv");
+	private void readEdges(String path) throws IOException{
+		edges = cin.read_pointers(path);
 	}
 	
-	private void readRoots() throws IOException{
-		 roots = cin.read_root("roots.txt");
+	private void readRoots(String path) throws IOException{
+		 roots = cin.read_root(path);
 	}
 	
 	private void link() {
@@ -51,11 +51,11 @@ public class Utils {
 		}
 	}
 	
-	public void init() throws IOException {
-		this.readHeap();
-		this.readEdges();
+	public void init(String heap_path,String pointers_path,String roots_path) throws IOException {
+		this.readHeap(heap_path);
+		this.readEdges(pointers_path);
 		this.link();
-		this.readRoots();
+		this.readRoots(roots_path);
 		this.setRoots();
 	}
 	List<ObjNode> getHeap() throws IOException{

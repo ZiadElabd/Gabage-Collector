@@ -26,8 +26,8 @@ public class Reader {
         return heap;
     }
 
-    public void write_heap(List<ObjNode> heap){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter("new-heap.csv"))){
+    public void write_heap(List<ObjNode> heap , String fileName){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
             for (ObjNode obj : heap) {
                 bw.write(obj.obj_id + "," + obj.memory_start + "," + obj.memory_end);
                 bw.newLine();

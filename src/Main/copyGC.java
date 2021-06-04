@@ -10,17 +10,19 @@ public class copyGC {
     private List<ObjNode> to_heap=new LinkedList<>();
     private List<ObjNode> roots=new LinkedList<>();
     Reader reader = new Reader();
-    public copyGC() throws IOException {
-        tools.init();
+
+    public copyGC(String heap_path,String pointers_path,String roots_path) throws IOException {
+        tools.init(heap_path,pointers_path,roots_path);
         this.from_heap=tools.getHeap();
         this.roots=tools.getRoots();
     }
-    public List<ObjNode> coping(){
+
+    public List<ObjNode> coping(String newHeapFile){
         int index=copyRoots();
         for (int i=0;i<to_heap.size();i++) {
             index=bfs(to_heap.get(i),index);
         }
-        reader.write_heap(to_heap);
+        reader.write_heap(to_heap,newHeapFile);
         return to_heap;
     }
     private int copyRoots(){
@@ -53,6 +55,20 @@ public class copyGC {
             }
         }
        return index;
+    }
+
+    public static void main(String[] args){
+        try {
+            if(args.length == 0){
+                copyGC gc = new copyGC("heap.csv","pointers.csv","roots.txt");
+                gc.coping("default.csv");
+            }else if (args.length == 4){
+                copyGC gc = new copyGC(args[0],args[1],args[2]);
+                gc.coping(args[3]);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
