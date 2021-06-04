@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class copyGC {
+public class CopyGC {
     private OPS tools;
     private List<ObjNode> from_heap;
     private List<ObjNode> to_heap=new LinkedList<>();
     private List<ObjNode> roots;
     Reader files = new Reader();
 
-    public copyGC(String heap_path,String pointers_path,String roots_path) throws IOException {
+    public CopyGC(String heap_path, String pointers_path, String roots_path) throws IOException {
         tools = new OPS(heap_path,pointers_path,roots_path);
         this.from_heap = tools.getHeap();
         this.roots = tools.getRoots();
@@ -60,10 +60,10 @@ public class copyGC {
     public static void main(String[] args){
         try {
             if(args.length == 0){
-                copyGC gc = new copyGC("heap.csv","pointers.csv","roots.txt");
+                CopyGC gc = new CopyGC("heap.csv","pointers.csv","roots.txt");
                 gc.coping("default.csv");
             }else if (args.length == 4){
-                copyGC gc = new copyGC(args[0],args[1],args[2]);
+                CopyGC gc = new CopyGC(args[0],args[1],args[2]);
                 gc.coping(args[3]);
             }
         }catch (IOException e){
