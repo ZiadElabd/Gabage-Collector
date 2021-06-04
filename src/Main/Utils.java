@@ -10,7 +10,7 @@ public class Utils {
 	private List<ObjNode> heap  = new LinkedList<>();
 	private List<String> roots = new LinkedList<>();
 	private List<ObjNode> rootsNodes = new LinkedList<>();
-	private List<List<String>> edges = new LinkedList<>() ; 
+	private List<List<String>> edges = new LinkedList<>();
 	
 	private void readHeap() throws IOException {
 		heap = cin.read_heap("heap.csv");
@@ -33,7 +33,7 @@ public class Utils {
 					for (ObjNode oo :heap) {
 						if (v.equals(oo.obj_id)) {
 							o.childs.add(oo);
-							break ; 
+							break ;
 						}
 					}
 				}
