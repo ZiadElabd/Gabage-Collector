@@ -35,20 +35,19 @@ public class copyGC {
             ObjNode root=roots.get(i);
            int size=root.memory_end- root.memory_start;
            root.memory_start=index+1;
-           root.memory_end=index+size;
+           root.memory_end=index+size+1;
            root.status=true;
            index+=size+1;
            to_heap.add(root);
         }
      return index;
-        
     }
     private int bfs(ObjNode parent,int index ){
         for (ObjNode node: parent.childs) {
             if(node.status!=true) {
                 int size = node.memory_end - node.memory_start;
-                node.memory_start = index;
-                node.memory_end = index + size +1;
+                node.memory_start = index+1;
+                node.memory_end = index + size+1;
                 node.status = true;
                 index += size+1;
                 to_heap.add(node);
