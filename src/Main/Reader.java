@@ -13,6 +13,8 @@ public class Reader {
         List<ObjNode> heap = new LinkedList<>();
         List<String> lines= Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         lines.forEach(line -> {
+            line = fixLine(line);
+            line.replaceFirst("ï»¿", "");
             String[] col = line.split(",");
             for(String s : col){
                 s.replaceAll("[^0-9]+", "");
@@ -38,6 +40,8 @@ public class Reader {
     public List<String> read_root(String path) throws IOException {
         List<String> roots =  Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         roots.forEach( r -> {
+            r = fixLine(r);
+            r.replaceFirst("ï»¿", "");
             r.replaceAll("[^0-9]+", "");
         });
         return roots;
@@ -47,6 +51,8 @@ public class Reader {
         List<List<String>> pointers = new LinkedList<>();
         List<String> lines= Files.readAllLines(Path.of(path), StandardCharsets.UTF_8);
         lines.forEach(line -> {
+            line = fixLine(line);
+            line.replaceFirst("ï»¿", "");
             String[] col = line.split(",");
             for(String s : col){
                 s.replaceAll("[^0-9]+", "");
@@ -54,5 +60,19 @@ public class Reader {
             pointers.add(Arrays.asList(col));
         });
         return pointers;
+    }
+
+    public String fixLine(String line){
+        List<Character> ch = new LinkedList<>();
+        for(char c : line.toCharArray()){
+            if(c > 31 && c < 58)
+                ch.add(c);
+        }
+        char[] l = new char[ch.size()];
+        int i=0;
+        for (Character c : ch) {
+            l[i++] = c;
+        }
+        return new String(l);
     }
 }
